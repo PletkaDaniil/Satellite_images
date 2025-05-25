@@ -1,0 +1,21 @@
+[project]
+name = "project"
+version = "0.1.0"
+description = "Проект для обработки спутниковых данных"
+authors = [
+    {name = "Your_Name"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "earthengine-api",
+    "requests",
+    "zipfile38",
+    "rioxarray",
+    "numpy",
+   " scikit-learn",
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
