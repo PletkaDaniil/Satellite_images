@@ -9,9 +9,6 @@ from io import BytesIO
 from datetime import datetime
 from sklearn.preprocessing import StandardScaler
 
-ee.Authenticate()
-ee.Initialize()
-
 def normalize_tensor(tensor: np.ndarray):
     shape = tensor.shape
     reshaped_tensor = tensor.reshape(-1, shape[-1])

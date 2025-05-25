@@ -1,5 +1,5 @@
 from project.data import *
-import ee
+
 ee.Authenticate()
 ee.Initialize()
 
