@@ -10,6 +10,17 @@ from datetime import datetime
 from sklearn.preprocessing import StandardScaler
 
 def normalize_tensor(tensor: np.ndarray):
+
+    """
+    Normalizes a multi-dimensional tensor.
+
+    Args:
+        tensor (np.ndarray): Input NumPy array, where normalization is applied across the features.
+
+    Returns:
+        np.ndarray: Tensor of the same shape as the input, with each feature normalized to have zero mean and unit variance.
+    """
+
     shape = tensor.shape
     reshaped_tensor = tensor.reshape(-1, shape[-1])
 
@@ -33,6 +44,30 @@ def get_image_tensor(
     existing_metadata: list = None,
     flag: bool = False
 ):
+    
+    """
+    Fetches satellite imagery from an Earth Engine collection, filters by region, date, and cloud cover, downloads and processes the images into a normalized tensor.
+
+    Args:
+        region (ee.Geometry): A region of interest as an Earth Engine Geometry object.
+        start_date (str): Start date for image collection filtering in 'YYYY-MM-DD' format.
+        end_date (str): End date for image collection filtering in 'YYYY-MM-DD' format.
+        collection_id (str): Earth Engine image collection ID (e.g., 'LANDSAT/LC08/C02/T1_L2').
+        bands (list, optional): Specific band names to select. If None, all available bands are used.
+        cloud_cover_max (float, optional): Maximum cloud cover percentage for filtering images (default is 40).
+        cloud_cover_field (str, optional): Metadata field for cloud cover filtering (default is "CLOUD_COVER").
+        scale (int, optional): Pixel resolution in meters for image download (default is 30).
+        crs (str, optional): Coordinate reference system for export (default is 'EPSG:4326').
+        base_output_dir (str, optional): Directory to store downloaded and extracted data (default is 'data').
+        existing_tensor (np.ndarray, optional): Previously loaded tensor to which new data can be appended.
+        existing_metadata (list, optional): List of metadata corresponding to the existing tensor.
+        flag (bool, optional): If True, attempts to append new data to `existing_tensor` if shapes match (default is False).
+
+    Returns:
+            np.ndarray: 3D tensor of normalized image data with shape (N, H, W).
+            list: List of tuples with metadata in the form (date, band_name) for each layer.
+    """
+
     os.makedirs(base_output_dir, exist_ok=True)
 
     col = (
