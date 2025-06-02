@@ -1,7 +1,7 @@
 from project.data import *
 
 ee.Authenticate()
-ee.Initialize()
+ee.Initialize(project='your-project-id')
 
 region = ee.Geometry.Rectangle([
     30.17872139688425, 59.86816653184917,
